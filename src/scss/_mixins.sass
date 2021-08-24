@@ -1,0 +1,13 @@
+@import './variables'
+
+=button($color: $gray1, $svgColor: #fff, $padding: 1em 2em)
+  background: $color
+  padding: $padding
+  transition: background .25s
+  display: flex
+  align-items: center
+  justify-content: center
+  &:hover
+    background: lighten($color, 7%)
+  & svg path
+    color: $svgColor

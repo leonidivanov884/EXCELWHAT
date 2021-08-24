@@ -1,0 +1,40 @@
+@import './_variables'
+
+.excel__table
+  width: 100vw
+  overflow-x: auto
+  height: calc(100vh - 50px )
+  color: #fff
+
+  .row
+    display: flex
+    flex-direction: row
+    min-height: 20px
+    height: $row-height
+  .row-info
+    display:  flex
+    justify-content: center
+    align-items: center
+    width: $info-sell-width
+    border: 1px solid rgba(#fff, .25)
+    flex-shrink: 0
+    border-top: none
+  .cell
+    width: $column-width
+    height: $row-height
+    border-bottom: 1px solid rgba(#fff, .1)
+    border-right: 1px solid rgba(#fff, .1)
+    padding: 2px
+    outline: none
+    &.selected
+      border: none
+      outline: 2px solid #0D58DA
+  .column
+    display:  flex
+    justify-content: center
+    align-items: center
+    border: 1px solid rgba(#fff, .25)
+    width: $column-width
+    border-top: none
+  .row-data
+    display: flex

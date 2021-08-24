@@ -1,0 +1,36 @@
+.drop
+  position: relative
+  height: 100%
+
+  &-hid
+    display: none
+    position: absolute
+    background: $gray1
+    bottom: 0
+    left: 0
+    border: 1px solid rgba(#fff, .1)
+    border-top: none
+    padding: 15px
+    transform: translateY(100%)
+    h4
+      font-size: 14px
+      font-weight: 500
+      white-space: nowrap
+  &-head
+    cursor: pointer
+    padding: 0 1em
+    height: 100%
+    display:  flex
+    align-items: center
+    transition: .35s
+  &:hover
+    .drop-hid
+      display: block
+    .drop-head
+      background: rgba(#000, .2)
+  &-box
+    display: flex
+    align-items: center
+    flex-wrap: wrap
+  button
+    +button($gray1,#fff,1em)
