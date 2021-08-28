@@ -2,17 +2,31 @@
 
 .excel__table
   width: fit-content
-  max-height: calc(100vh - 50px)
   color: #fff
   overflow: hidden
-  margin-top: 130px
+  padding-top: 130px
   .row
     display: flex
     flex-direction: row
     flex-wrap: nowrap
     min-height: 20px
     height: $row-height
+    &:first-child .row-resize
+      pointer-events: none
+    &.inResize
+      .row-resize::before
+        background: $blue
+        height: 4px
+      .row-resize::after
+        content: ''
+        position: absolute
+        left: 0
+        bottom: 0
+        width: 10000px
+        height: 1px
+        background: $blue
   .row-info
+    position: relative
     display:  flex
     justify-content: center
     align-items: center
@@ -20,22 +34,77 @@
     border: 1px solid rgba(#fff, .25)
     flex-shrink: 0
     border-top: none
+    border-bottom: none
   .cell
     width: $column-width
-    height: $row-height
+    min-height: $row-height
     border-bottom: 1px solid rgba(#fff, .1)
     border-right: 1px solid rgba(#fff, .1)
     padding: 2px
     outline: none
     &.selected
       border: none
-      outline: 2px solid #0D58DA
+      outline: 2px solid $blue
   .column
+    position: relative
     display:  flex
     justify-content: center
     align-items: center
-    border: 1px solid rgba(#fff, .25)
+    border-bottom: 1px solid rgba(#fff, .25)
     width: $column-width
-    border-top: none
+    min-width: 35px
+    &.inResize
+      .col-resize::before
+        background: $blue
+        width: 4px
+      .col-resize::after
+        content: ''
+        position: absolute
+        right: 2px
+        top: 0
+        width: 1px
+        height: 5000px
+        background: $blue
+  .col-resize
+    height: 100%
+    width: 6px
+    position: absolute
+    top: 0
+    right: -3px
+    &:before
+      content: ''
+      position: absolute
+      top: 0
+      left: 50%
+      transform: translateX(-50%)
+      width: 1px
+      height: 100%
+      background: rgba(#fff, .25)
+    &:hover
+      cursor: col-resize
+      &::before
+        background: $blue
+        width: 4px
+
+  .row-resize
+    position: absolute
+    height: 6px
+    width: 100%
+    bottom: 0px
+    right: 0px
+    &:before
+      content: ''
+      position: absolute
+      bottom: 0
+      transform: translateY(50%)
+      width: 100%
+      height: 1px
+      background: rgba(#fff, .3)
+    &:hover
+      cursor: row-resize
+      &::before
+        background: $blue
+        height: 4px
+
   .row-data
     display: flex
