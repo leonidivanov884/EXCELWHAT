@@ -27,11 +27,16 @@ p
 ul, li
   list-style: none
 
-body
+body,html
   background: $dark
-  max-width: 100vw
-  overflow: hidden
-  height: 100vh
+  &::-webkit-scrollbar
+    background: none
+    height: 8px
+    width: 8px
+  &::-webkit-scrollbar-thumb
+    height: 8px
+    width: 8px
+    background: #2a2a44
 
 button
   background: none

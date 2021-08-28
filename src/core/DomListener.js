@@ -1,4 +1,4 @@
-import {capitalize} from "./utils";
+import {capitalize} from './utils';
 
 export class DomListener {
   constructor($root, listeners = []) {
@@ -17,12 +17,16 @@ export class DomListener {
             `Method ${method} is not implemented in ${this.name} Component`
         )
       }
-      this.$root.on(listener, this[method].bind(this))
+      this[method] = this[method].bind(this)
+      this.$root.on(listener, this[method])
     })
   }
 
   removeDOMListeners() {
-
+    this.listeners.forEach(listener => {
+      const method = getMethodName(capitalize(listener))
+      this.$root.off(listener, this[method])
+    })
   }
 }
 

@@ -1,14 +1,15 @@
 @import './_variables'
 
 .excel__table
-  width: 100vw
-  overflow-x: auto
-  height: calc(100vh - 50px )
+  width: fit-content
+  max-height: calc(100vh - 50px)
   color: #fff
-
+  overflow: hidden
+  margin-top: 130px
   .row
     display: flex
     flex-direction: row
+    flex-wrap: nowrap
     min-height: 20px
     height: $row-height
   .row-info
