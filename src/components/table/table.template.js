@@ -18,6 +18,7 @@ function toCell(row, index) {
     <div class="cell" 
       contentEditable="" 
       data-cell-col="${letter}" 
+      data-cell-id="${letter}:${row}" 
       data-cell-row="${row}">    
     </div>
   `

@@ -54,8 +54,31 @@ class Dom {
     return this.$el.getBoundingClientRect()
   }
 
+  find(selector) {
+    return $(this.$el.querySelector(selector))
+  }
+
   findAll(selector) {
     return this.$el.querySelectorAll(selector)
+  }
+
+  addClass(className) {
+    this.$el.classList.add(className)
+  }
+
+  removeClass(className) {
+    this.$el.classList.remove(className)
+  }
+
+  callId(parse) {
+    if (parse) {
+      const id = this.callId().split(':')
+      return {
+        row: +id[1],
+        column: +id[0].charCodeAt(0) - 64,
+      }
+    }
+    return this.data.cellId
   }
 
   css(styles = {}) {

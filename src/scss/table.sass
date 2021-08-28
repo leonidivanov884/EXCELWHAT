@@ -42,9 +42,10 @@
     border-right: 1px solid rgba(#fff, .1)
     padding: 2px
     outline: none
+    min-width: 40px
     &.selected
       border: none
-      outline: 2px solid $blue
+      outline: 1.5px solid $green
   .column
     position: relative
     display:  flex
@@ -52,7 +53,7 @@
     align-items: center
     border-bottom: 1px solid rgba(#fff, .25)
     width: $column-width
-    min-width: 35px
+    min-width: 40px
     &.inResize
       .col-resize::before
         background: $blue
