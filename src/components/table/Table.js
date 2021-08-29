@@ -3,14 +3,16 @@ import {ExcelComponent} from '../../core/ExcelComponent';
 import {TableSelection} from './TableSelection';
 import {createTable} from './table.template';
 import {resizeHandler} from './tabel.resize';
-import {isCall, shouldResize} from './table.functions';
+import {isCall, nextSelection, range, shouldResize} from './table.functions';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table'
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
-      listeners: ['mousedown', 'click']
+      name: 'Table',
+      listeners: ['mousedown', 'click', 'keydown', 'input'],
+      ...options
     });
   }
 
@@ -25,14 +27,26 @@ export class Table extends ExcelComponent {
   init() {
     super.init()
     const $cell = this.$root.find('[data-cell-id="A:1"]')
-    this.selection.select($cell)
-  }
 
+    this.selectCell($cell)
+    this.$on('formula:input', text => {
+      this.selection.current.text(text)
+    })
+
+    this.$on('formula:done', () => {
+      this.selection.current.focus()
+    })
+  }
 
   onMousedown(event) {
     if (shouldResize(event)) {
       resizeHandler(this.$root, event)
     }
+  }
+
+  selectCell($cell) {
+    this.selection.select($cell)
+    this.$emit('table:select', $cell)
   }
 
   onClick(event) {
@@ -58,13 +72,24 @@ export class Table extends ExcelComponent {
       }
     }
   }
+
+  onKeydown(event) {
+    const keys = ['Enter', 'Tab', 'ArrowLeft',
+      'ArrowRight', 'ArrowDown', 'ArrowUp']
+
+    const {key} = event
+
+    if (keys.includes(key) && !event.shiftKey) {
+      event.preventDefault()
+      const {row, column} = this.selection.current.callId(true)
+      const $next = this.$root.find(nextSelection(key, row, column))
+      this.selectCell($next)
+    }
+  }
+
+  onInput(event) {
+    this.$emit('table:input', $(event.target))
+  }
 }
 
-function range(start, end) {
-  if (start > end) {
-    [end, start] = [start, end]
-  }
-  return new Array(end - start + 1)
-      .fill('')
-      .map((_, index) => start + index)
-}
+
